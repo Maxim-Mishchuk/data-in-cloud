@@ -242,7 +242,7 @@ class ProfileControllerIntegrationTest {
             profileDocument.setLastName(this.lastName);
             profileDocument.setPhotoPath(this.photo);
             profileDocument.setBirthDate(this.birthDate);
-            profileDocument.setTagsList(this.tagsList);
+            profileDocument.setTags(this.tagsList);
             return profileDocument;
         }
     }

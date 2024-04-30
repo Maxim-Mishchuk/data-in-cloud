@@ -34,3 +34,7 @@ services:
       MONGO_INITDB_DATABASE: data-in-cloud
     volumes:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:

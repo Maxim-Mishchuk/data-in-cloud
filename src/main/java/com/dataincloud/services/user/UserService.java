@@ -44,4 +44,8 @@ public class UserService {
                 userRepository.delete(id), UserDto.class
         );
     }
+
+    public boolean existsById(Long id) {
+        return userRepository.exists(id);
+    }
 }

@@ -48,4 +48,8 @@ public class ProfileService {
                 ProfileDto.class
         );
     }
+
+    public boolean existsById(UUID id) {
+        return profileRepository.exists(id);
+    }
 }

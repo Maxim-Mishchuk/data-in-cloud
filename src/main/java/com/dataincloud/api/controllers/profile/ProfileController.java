@@ -13,33 +13,34 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/profiles")
 @RequiredArgsConstructor
 public class ProfileController {
     private final ProfileService profileService;
 
-    @PostMapping("/profiles")
+    @PostMapping
     public ResponseEntity<ProfileDto> create(@RequestBody @Valid ProfileCreateDto newProfile) {
         ProfileDto createdProfile = profileService.create(newProfile);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProfile);
     }
 
-    @GetMapping("/profiles")
+    @GetMapping
     public List<ProfileDto> getAll() {
         return profileService.readAll();
     }
 
-    @GetMapping("/profiles/{id}")
+    @GetMapping("/{id}")
     public ProfileDto getById(@PathVariable UUID id) {
         return profileService.readById(id);
     }
 
-    @PutMapping("/profiles")
+    @PutMapping
     public ResponseEntity<ProfileDto> update(@RequestBody @Valid ProfileDto editedProfile) {
             ProfileDto updatedProfile = profileService.update(editedProfile);
             return ResponseEntity.status(HttpStatus.OK).body(updatedProfile);
     }
 
-    @DeleteMapping("/profiles/{id}")
+    @DeleteMapping("/{id}")
     public ProfileDto delete(@PathVariable("id") UUID id) {
         return profileService.deleteById(id);
     }

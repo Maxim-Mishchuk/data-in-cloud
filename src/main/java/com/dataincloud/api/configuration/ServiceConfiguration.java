@@ -5,6 +5,7 @@ import com.dataincloud.core.profile.IProfileRepository;
 import com.dataincloud.core.user.IUserRepository;
 import com.dataincloud.services.post.PostService;
 import com.dataincloud.services.profile.ProfileService;
+import com.dataincloud.services.profilebyuser.ProfileByUserOrchestrator;
 import com.dataincloud.services.user.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -25,5 +26,9 @@ public class ServiceConfiguration {
     @Bean
     public ProfileService profileService(IProfileRepository profileRepository, ModelMapper modelMapper) {
         return new ProfileService(profileRepository, modelMapper);
+    }
+
+    @Bean public ProfileByUserOrchestrator profileByUserService(UserService userService, ProfileService profileService) {
+        return new ProfileByUserOrchestrator(userService, profileService);
     }
 }

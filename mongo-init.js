@@ -1,3 +1,4 @@
+db.dropDatabase();
 db.createUser(
         {
             user: "admin-dic",

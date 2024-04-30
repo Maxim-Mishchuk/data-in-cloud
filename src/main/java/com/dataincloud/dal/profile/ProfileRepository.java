@@ -68,4 +68,8 @@ public class ProfileRepository implements IProfileRepository {
         profileRepository.deleteById(id);
         return deletedProfile;
     }
+
+    public boolean exists(UUID id) {
+        return profileRepository.existsById(id);
+    }
 }

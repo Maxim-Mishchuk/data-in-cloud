@@ -54,4 +54,9 @@ public class UserRepository implements IUserRepository {
         userRepository.deleteById(id);
         return deletedUser;
     }
+
+    @Override
+    public boolean exists(Long id) {
+        return userRepository.existsById(id);
+    }
 }

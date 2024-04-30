@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-@Document("profiles")
+@Document()
 @Data
 public class ProfileDocument {
     @Id
@@ -19,5 +19,5 @@ public class ProfileDocument {
     private String lastName;
     private String photoPath;
     private LocalDate birthDate;
-    private List<Profile.ProfileTags> tagsList;
+    private List<Profile.ProfileTags> tags;
 }
