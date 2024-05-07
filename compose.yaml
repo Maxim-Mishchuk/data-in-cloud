@@ -1,0 +1,40 @@
+services:
+  back-end:
+    build: .
+    container_name: 'mmd_ia14_backend'
+    ports:
+      - '8080:8080'
+    depends_on:
+      postgres:
+        condition: service_started
+      mongodb:
+        condition: service_started
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_DATA_MONGODB_URI=mongodb://admin-dic:admin@mongodb:27017/data-in-cloud
+  postgres:
+    image: 'postgres:16.2'
+    container_name: 'mmd_ia14_postgres_db'
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+    ports:
+      - '5432:5432'
+  mongodb:
+    image: mongo
+    container_name: 'mmd_ia14_mongo_db'
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: data-in-cloud
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
