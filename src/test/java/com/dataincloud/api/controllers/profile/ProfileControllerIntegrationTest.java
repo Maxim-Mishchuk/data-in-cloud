@@ -1,6 +1,7 @@
 package com.dataincloud.api.controllers.profile;
 
 import com.dataincloud.api.Application;
+import com.dataincloud.api.configuration.BlobStorageTestConfiguration;
 import com.dataincloud.core.profile.Profile;
 import com.dataincloud.dal.profile.ProfileDocument;
 import com.dataincloud.services.profile.dto.ProfileCreateDto;
@@ -14,6 +15,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -37,6 +39,7 @@ import static org.hamcrest.Matchers.*;
 
 @Testcontainers
 @SpringBootTest(classes = Application.class)
+@Import({BlobStorageTestConfiguration.class})
 @AutoConfigureMockMvc
 public class ProfileControllerIntegrationTest {
 

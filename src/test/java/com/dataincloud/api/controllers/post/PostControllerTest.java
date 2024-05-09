@@ -1,6 +1,7 @@
 package com.dataincloud.api.controllers.post;
 
 import com.dataincloud.api.Application;
+import com.dataincloud.api.configuration.BlobStorageTestConfiguration;
 import com.dataincloud.services.post.dto.PostCreateDto;
 import com.dataincloud.services.post.dto.PostDto;
 import com.dataincloud.services.user.dto.BasicUserDto;
@@ -12,6 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -24,6 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(classes = Application.class)
+@Import({BlobStorageTestConfiguration.class})
 @AutoConfigureMockMvc
 class PostControllerTest {
     @Autowired

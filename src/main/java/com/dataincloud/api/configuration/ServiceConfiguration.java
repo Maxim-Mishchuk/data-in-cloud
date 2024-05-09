@@ -29,7 +29,8 @@ public class ServiceConfiguration {
         return new ProfileService(profileRepository, modelMapper);
     }
 
-    @Bean public ProfileByUserOrchestrator profileByUserService(UserService userService, ProfileService profileService, BlobServiceClient blobServiceClient) {
+    @Bean
+    public ProfileByUserOrchestrator profileByUserService(UserService userService, ProfileService profileService, BlobServiceClient blobServiceClient) {
         return new ProfileByUserOrchestrator(userService, profileService, blobServiceClient);
     }
 }

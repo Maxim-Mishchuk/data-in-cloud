@@ -5,6 +5,7 @@ import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.dataincloud.api.Application;
+import com.dataincloud.api.configuration.BlobStorageTestConfiguration;
 import com.dataincloud.api.controllers.profile.ProfileControllerIntegrationTest;
 import com.dataincloud.dal.profile.ProfileDocument;
 import org.junit.jupiter.api.AfterEach;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -40,6 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Testcontainers
 @SpringBootTest(classes = Application.class)
+@Import({BlobStorageTestConfiguration.class})
 @AutoConfigureMockMvc
 class ProfileByUserControllerIntegrationTest {
 
