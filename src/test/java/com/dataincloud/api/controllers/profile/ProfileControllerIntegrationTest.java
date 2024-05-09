@@ -38,7 +38,7 @@ import static org.hamcrest.Matchers.*;
 @Testcontainers
 @SpringBootTest(classes = Application.class)
 @AutoConfigureMockMvc
-class ProfileControllerIntegrationTest {
+public class ProfileControllerIntegrationTest {
 
     @Container
     private static final MongoDBContainer mongoDb = new MongoDBContainer("mongo:latest").withExposedPorts(27017);
@@ -190,7 +190,7 @@ class ProfileControllerIntegrationTest {
         }
     }
 
-    static class ProfileDocumentBuilder {
+    public static class ProfileDocumentBuilder {
         private UUID id;
         private Long userId;
         private String firstName;

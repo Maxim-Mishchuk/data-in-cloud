@@ -1,5 +1,6 @@
 package com.dataincloud.api.configuration;
 
+import com.azure.storage.blob.BlobServiceClient;
 import com.dataincloud.core.post.IPostRepository;
 import com.dataincloud.core.profile.IProfileRepository;
 import com.dataincloud.core.user.IUserRepository;
@@ -28,7 +29,7 @@ public class ServiceConfiguration {
         return new ProfileService(profileRepository, modelMapper);
     }
 
-    @Bean public ProfileByUserOrchestrator profileByUserService(UserService userService, ProfileService profileService) {
-        return new ProfileByUserOrchestrator(userService, profileService);
+    @Bean public ProfileByUserOrchestrator profileByUserService(UserService userService, ProfileService profileService, BlobServiceClient blobServiceClient) {
+        return new ProfileByUserOrchestrator(userService, profileService, blobServiceClient);
     }
 }

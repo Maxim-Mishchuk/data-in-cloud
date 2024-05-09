@@ -3,7 +3,6 @@ package com.dataincloud.services.profilebyuser;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
-import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.blob.models.TaggedBlobItem;
 import com.dataincloud.core.exceptions.ResourceNotFoundException;
 
@@ -21,18 +20,15 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 public class ProfileByUserOrchestrator {
-    @Value("${spring.cloud.azure.storage.blob.connection-string}")
-    private String connectionString;
     @Value("${spring.cloud.azure.storage.blob.container-name}")
     private String containerName;
 
     private final UserService userService;
     private final ProfileService profileService;
 
+    private final BlobServiceClient blobServiceClient;
+
     private BlobContainerClient getContainerClient() {
-        BlobServiceClient blobServiceClient = new BlobServiceClientBuilder()
-                .connectionString(connectionString)
-                .buildClient();
         return blobServiceClient.getBlobContainerClient(containerName);
     }
 
