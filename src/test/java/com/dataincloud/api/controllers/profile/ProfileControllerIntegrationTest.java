@@ -2,6 +2,8 @@ package com.dataincloud.api.controllers.profile;
 
 import com.dataincloud.api.Application;
 import com.dataincloud.api.configuration.BlobStorageTestConfiguration;
+import com.dataincloud.api.configuration.MongoDbTestConfiguration;
+import com.dataincloud.api.configuration.PostgresTestConfiguration;
 import com.dataincloud.core.profile.Profile;
 import com.dataincloud.dal.profile.ProfileDocument;
 import com.dataincloud.services.profile.dto.ProfileCreateDto;
@@ -18,12 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.containers.MongoDBContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.LocalDate;
@@ -37,19 +34,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
 
-@Testcontainers
 @SpringBootTest(classes = Application.class)
-@Import({BlobStorageTestConfiguration.class})
+@Import({PostgresTestConfiguration.class, MongoDbTestConfiguration.class, BlobStorageTestConfiguration.class})
 @AutoConfigureMockMvc
 public class ProfileControllerIntegrationTest {
-
-    @Container
-    private static final MongoDBContainer mongoDb = new MongoDBContainer("mongo:latest").withExposedPorts(27017);
-
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.data.mongodb.uri", mongoDb::getReplicaSetUrl);
-    }
 
     @Autowired
     private MongoTemplate mongoTemplate;

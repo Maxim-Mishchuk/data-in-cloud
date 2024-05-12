@@ -13,6 +13,14 @@ public class BlobStorageConfiguration {
     @Value("${spring.cloud.azure.storage.blob.connection-string}")
     private String connectionString;
 
+    @Value("${spring.cloud.azure.storage.blob.container-name}")
+    private String containerName;
+
+    @Bean
+    public String containerName() {
+        return containerName;
+    }
+
     @Bean
     public BlobServiceClient blobServiceClient() {
         return new BlobServiceClientBuilder()

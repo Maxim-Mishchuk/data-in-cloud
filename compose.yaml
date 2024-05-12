@@ -35,6 +35,13 @@ services:
     volumes:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
       - mongodb_data:/data/db
+  rabbitmq:
+    image: 'rabbitmq:3.12.14-management-alpine'
+    container_name: 'mmd_ia14_rabbitmq'
+    ports:
+      - 15672:15672
+      - 5672:5672
+    hostname: 'my-rabbit'
 
 volumes:
   mongodb_data:

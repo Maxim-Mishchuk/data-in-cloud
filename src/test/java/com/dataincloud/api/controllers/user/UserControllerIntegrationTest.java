@@ -2,6 +2,7 @@ package com.dataincloud.api.controllers.user;
 
 import com.dataincloud.api.Application;
 import com.dataincloud.api.configuration.BlobStorageTestConfiguration;
+import com.dataincloud.api.configuration.PostgresTestConfiguration;
 import com.dataincloud.services.user.dto.UserCreateDto;
 import com.dataincloud.services.user.dto.UserDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(classes = Application.class)
-@Import({BlobStorageTestConfiguration.class})
+@Import({PostgresTestConfiguration.class, BlobStorageTestConfiguration.class})
 @AutoConfigureMockMvc
 public class UserControllerIntegrationTest {
     @Autowired

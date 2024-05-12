@@ -2,6 +2,7 @@ package com.dataincloud.api.controllers.post;
 
 import com.dataincloud.api.Application;
 import com.dataincloud.api.configuration.BlobStorageTestConfiguration;
+import com.dataincloud.api.configuration.PostgresTestConfiguration;
 import com.dataincloud.services.post.dto.PostCreateDto;
 import com.dataincloud.services.post.dto.PostDto;
 import com.dataincloud.services.user.dto.BasicUserDto;
@@ -26,9 +27,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(classes = Application.class)
-@Import({BlobStorageTestConfiguration.class})
+@Import({PostgresTestConfiguration.class, BlobStorageTestConfiguration.class})
 @AutoConfigureMockMvc
-class PostControllerTest {
+class PostControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired

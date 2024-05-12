@@ -6,6 +6,9 @@ import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.dataincloud.api.Application;
 import com.dataincloud.api.configuration.BlobStorageTestConfiguration;
+import com.dataincloud.api.configuration.MongoDbTestConfiguration;
+import com.dataincloud.api.configuration.PostgresTestConfiguration;
+import com.dataincloud.api.configuration.RabbitTestConfiguration;
 import com.dataincloud.api.controllers.profile.ProfileControllerIntegrationTest;
 import com.dataincloud.dal.profile.ProfileDocument;
 import org.junit.jupiter.api.AfterEach;
@@ -23,12 +26,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.containers.MongoDBContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -40,19 +38,10 @@ import static com.dataincloud.core.profile.Profile.ProfileTags.EDUCATION;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Testcontainers
 @SpringBootTest(classes = Application.class)
-@Import({BlobStorageTestConfiguration.class})
+@Import({PostgresTestConfiguration.class, MongoDbTestConfiguration.class, RabbitTestConfiguration.class, BlobStorageTestConfiguration.class})
 @AutoConfigureMockMvc
 class ProfileByUserControllerIntegrationTest {
-
-    @Container
-    private static final MongoDBContainer mongoDb = new MongoDBContainer("mongo:latest").withExposedPorts(27017);
-
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.data.mongodb.uri", mongoDb::getReplicaSetUrl);
-    }
 
     @Autowired
     private MockMvc mockMvc;
@@ -109,7 +98,7 @@ class ProfileByUserControllerIntegrationTest {
 
     @ParameterizedTest
     @MethodSource("setNonExistentPairs")
-    void createNewConnectionWithNonExistentIds(Long userId, UUID profileId) throws Exception{
+    void createNewConnectionWithNonExistentIds(Long userId, UUID profileId) throws Exception {
         mockMvc.perform(
                 post("/users/{userId}/profiles/{profileId}", userId, profileId)
         ).andExpect(status().isNotFound());

@@ -1,6 +1,7 @@
 package com.dataincloud.dal.post;
 
 import com.dataincloud.api.configuration.BasicConfiguration;
+import com.dataincloud.api.configuration.PostgresTestConfiguration;
 import com.dataincloud.api.configuration.RepositoryJpaConfiguration;
 import com.dataincloud.core.exceptions.ResourceNotFoundException;
 import com.dataincloud.core.post.Post;
@@ -8,7 +9,9 @@ import com.dataincloud.core.user.User;
 import com.dataincloud.dal.user.UserRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Calendar;
@@ -17,6 +20,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import({PostgresTestConfiguration.class})
 @ContextConfiguration(classes = {BasicConfiguration.class, RepositoryJpaConfiguration.class})
 class PostRepositoryTest {
     @Autowired

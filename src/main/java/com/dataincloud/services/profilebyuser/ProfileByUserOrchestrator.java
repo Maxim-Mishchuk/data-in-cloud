@@ -10,7 +10,6 @@ import com.dataincloud.services.profile.ProfileService;
 import com.dataincloud.services.profile.dto.ProfileDto;
 import com.dataincloud.services.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -20,8 +19,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 public class ProfileByUserOrchestrator {
-    @Value("${spring.cloud.azure.storage.blob.container-name}")
-    private String containerName;
+    private final String containerName;
 
     private final UserService userService;
     private final ProfileService profileService;
