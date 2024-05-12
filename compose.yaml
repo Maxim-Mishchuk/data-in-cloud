@@ -15,7 +15,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=admin
       - SPRING_DATA_MONGODB_URI=mongodb://admin-dic:admin@mongodb:27017/data-in-cloud
   postgres:
-    image: 'postgres:16.2'
+    image: 'postgres:16.3'
     container_name: 'mmd_ia14_postgres_db'
     environment:
       POSTGRES_USER: 'admin'
@@ -23,7 +23,7 @@ services:
     ports:
       - '5432:5432'
   mongodb:
-    image: mongo
+    image: 'mongo:7.0.10-rc0-jammy'
     container_name: 'mmd_ia14_mongo_db'
     restart: always
     ports:
