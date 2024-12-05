@@ -1,0 +1,21 @@
+services:
+  back-end:
+    build: .
+    container_name: 'mmd_ia14_backend'
+    ports:
+      - '8080:8080'
+    depends_on:
+      database:
+        condition: service_started
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+  database:
+    image: 'postgres:16.2'
+    container_name: 'mmd_ia14_db'
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+    ports:
+      - '5432:5432'
