@@ -23,8 +23,12 @@ public class BlobStorageConfiguration {
 
     @Bean
     public BlobServiceClient blobServiceClient() {
-        return new BlobServiceClientBuilder()
+        BlobServiceClient client = new BlobServiceClientBuilder()
                 .connectionString(connectionString)
                 .buildClient();
+
+        client.createBlobContainerIfNotExists(containerName);
+
+        return client;
     }
 }

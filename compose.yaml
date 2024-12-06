@@ -9,6 +9,8 @@ services:
         condition: service_started
       mongodb:
         condition: service_started
+      azurite:
+        condition: service_started
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
       - SPRING_DATASOURCE_USERNAME=admin
@@ -35,6 +37,12 @@ services:
     volumes:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
       - mongodb_data:/data/db
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: 'mmd_ia14_azurite'
+    ports:
+      - 10000:10000
+    command: "azurite-blob --blobHost 0.0.0.0"
   rabbitmq:
     image: 'rabbitmq:3.12.14-management-alpine'
     container_name: 'mmd_ia14_rabbitmq'
